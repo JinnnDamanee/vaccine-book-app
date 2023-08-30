@@ -1,17 +1,21 @@
 import Image from "next/image";
-import styles from "./infoCard.module.css";
 
-const InfoCard = () => {
+interface InfoCardProps {
+    name: string;
+    image: string;
+}
+
+const InfoCard = ({ name, image }: InfoCardProps) => {
     return (
-        <div className={styles.card}>
-            <div className={styles.cardImg}>
-                <Image src={"/img/info.jpg"} alt="product picture" fill objectFit="cover" />
+        <div className="w-1/3 h-[300px] rounded-lg shadow-2xl">
+            <div className="w-full h-[70%] relative rounded-t-lg">
+                <Image src={image} alt={name} fill className="object-cover rounded-t-lg" />
             </div>
-            <div className={styles.textContainer}>
-                <h2>Why should we get <span style={{ color: '#16a34a' }}>Vaccinated</span> </h2>
-                <p style={{ marginTop: 10 }}> Vaccination bolsters individual immunity, safeguarding against severe illness and complications from infectious diseases. It forms a crucial barrier against outbreaks and helps protect vulnerable populations. By contributing to herd immunity, vaccinations collectively foster healthier communities and reduce the overall disease burden. </p>
+            <div className="w-full h-[30%] p-4">
+                {name}
             </div>
         </div>
+
     )
 }
 
