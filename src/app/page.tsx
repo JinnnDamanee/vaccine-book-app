@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import InfoCard from "@/components/InfoCard";
+import InteractiveCard from "@/components/InteractiveCard";
 
 
 type hospital = {

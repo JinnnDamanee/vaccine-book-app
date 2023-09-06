@@ -1,7 +1,11 @@
+import Form from "./Form"
+
 const Booking = () => {
     return (
-        <main>
-            <h1 className="p-10 text-7xl">Booking Page</h1>
+        <main className="h-[800px] flex items-center">
+            <div className=" bg-white mx-auto shadow-2xl p-10 w-fit">
+                <Form />
+            </div>
         </main>
     )
 }

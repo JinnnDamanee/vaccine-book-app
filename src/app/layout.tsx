@@ -2,6 +2,8 @@ import Menubar from '@/components/Menubar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const inter = Inter({ subsets: ['latin'] })
 

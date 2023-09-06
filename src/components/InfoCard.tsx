@@ -1,4 +1,5 @@
 import Image from "next/image";
+import InteractiveCard from "./InteractiveCard";
 
 interface InfoCardProps {
     name: string;
@@ -7,15 +8,14 @@ interface InfoCardProps {
 
 const InfoCard = ({ name, image }: InfoCardProps) => {
     return (
-        <div className="w-1/3 h-[300px] rounded-lg shadow-2xl">
+        <InteractiveCard>
             <div className="w-full h-[70%] relative rounded-t-lg">
                 <Image src={image} alt={name} fill className="object-cover rounded-t-lg" />
             </div>
             <div className="w-full h-[30%] p-4">
                 {name}
             </div>
-        </div>
-
+        </InteractiveCard>
     )
 }
 
