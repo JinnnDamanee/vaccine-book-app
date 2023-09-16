@@ -2,6 +2,7 @@
 
 import { useReducer } from "react";
 import InfoCard from "./InfoCard";
+import Link from "next/link";
 
 type hospital = {
     id: number;
@@ -76,17 +77,22 @@ const CardPanel = () => {
 
     return (
         <>
-            <div className="my-20 mx-60 flex justify-center gap-20" >
+            <div className="my-20 mx-auto flex justify-center gap-20 w-screen" >
                 {
                     data.map((item, index) => {
                         return (
-                            <InfoCard
-                                key={index}
-                                name={item.name}
-                                image={item.image}
-                                value={rating.get(item.name) || 0}
-                                onCompare={onSetRating}
-                            />
+                            <Link
+                                href={`/hospital/${item.id}`}
+                                className="w-1/4">
+                                <InfoCard
+                                    key={index}
+                                    name={item.name}
+                                    image={item.image}
+                                    value={rating.get(item.name) || 0}
+                                    onCompare={onSetRating}
+                                    onRemove={onRemove}
+                                />
+                            </Link>
                         )
                     })
                 }

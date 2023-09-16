@@ -7,9 +7,10 @@ interface InfoCardProps {
     image: string;
     value: number;
     onCompare: Function;
+    onRemove: Function;
 }
 
-const InfoCard = ({ name, image, value, onCompare }: InfoCardProps) => {
+const InfoCard = ({ name, image, value, onCompare, onRemove }: InfoCardProps) => {
     return (
         <InteractiveCard>
             <div className="w-full h-[60%] relative rounded-t-lg">
@@ -20,15 +21,18 @@ const InfoCard = ({ name, image, value, onCompare }: InfoCardProps) => {
                 <Rating
                     value={value}
                     onChange={(e, newValue) => {
-                        e.stopPropagation()
-                        onCompare(
-                            name,
-                            newValue
-                        )
+                        if (newValue === null) {
+                            onRemove(name)
+                        } else {
+                            onCompare(
+                                name,
+                                newValue
+                            )
+                        }
                     }}
+                    onClick={(e) => e.stopPropagation()}
                 />
             </div>
-
         </InteractiveCard>
     )
 }

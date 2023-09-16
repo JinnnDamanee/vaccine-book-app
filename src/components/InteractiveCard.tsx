@@ -22,7 +22,7 @@ const InteractiveCard = ({ children }: InteractiveCardProps) => {
     }
     return (
         <div
-            className="w-1/3 h-[300px] shadow-lg bg-white"
+            className="w-full h-[300px] shadow-lg bg-white"
             onMouseOver={(e) => onMouseAction(e)}
             onMouseOut={(e) => onMouseAction(e)}
         >
