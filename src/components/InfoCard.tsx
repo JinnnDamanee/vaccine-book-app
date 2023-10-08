@@ -5,9 +5,9 @@ import { Rating } from "@mui/material";
 interface InfoCardProps {
     name: string;
     image: string;
-    value: number;
-    onCompare: Function;
-    onRemove: Function;
+    value?: number;
+    onCompare?: Function;
+    onRemove?: Function;
 }
 
 const InfoCard = ({ name, image, value, onCompare, onRemove }: InfoCardProps) => {
@@ -18,20 +18,24 @@ const InfoCard = ({ name, image, value, onCompare, onRemove }: InfoCardProps) =>
             </div>
             <div className="w-full p-4">
                 <h1 className="mb-4">{name}</h1>
-                <Rating
-                    value={value}
-                    onChange={(e, newValue) => {
-                        if (newValue === null) {
-                            onRemove(name)
-                        } else {
-                            onCompare(
-                                name,
-                                newValue
-                            )
-                        }
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                />
+                {
+                    onCompare && onRemove ? (
+                        <Rating
+                            value={value}
+                            onChange={(e, newValue) => {
+                                if (newValue === null) {
+                                    onRemove(name)
+                                } else {
+                                    onCompare(
+                                        name,
+                                        newValue
+                                    )
+                                }
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    ) : <></>
+                }
             </div>
         </InteractiveCard>
     )
