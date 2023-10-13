@@ -1,4 +1,5 @@
 'use client'
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -6,13 +7,14 @@ import { useState } from "react"
 const Banner = () => {
     const [index, setIndex] = useState(0)
     const router = useRouter()
+    const { data: session } = useSession();
+
     const imageList = [
         '/img/vaccine.jpeg',
         '/img/room.jpg',
         '/img/bed.jpg',
         '/img/laptop.jpg',
     ]
-
 
     return (
         <div className='block p-5 select-none m-0 w-screen h-[50vh] relative'>
@@ -39,6 +41,11 @@ const Banner = () => {
             >
                 Go check the hospital
             </button>
+            {
+                session ? <div className="z-30 absolute top-5 right-10 font-semibold text-slate-800 text-xl">
+                    Logged as {session.user?.name}</div>
+                    : null
+            }
         </div >
     )
 }

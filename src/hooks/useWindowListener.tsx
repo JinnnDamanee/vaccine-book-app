@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from "react";
 
 const useWindowListener = (event: string, listerner: EventListener) => {
