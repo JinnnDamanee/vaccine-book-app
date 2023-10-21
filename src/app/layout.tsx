@@ -5,7 +5,8 @@ import { Inter } from 'next/font/google'
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import NextAuthProvider from '@/providers/NextAuthProvider'
-
+import ReduxProvider from '@/redux/ReduxProvider'
+import { twMerge } from 'tailwind-merge'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -22,11 +23,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className + ' mt-16'}>
-        <NextAuthProvider session={session}>
-          <Menubar />
-          {children}
-        </NextAuthProvider>
+      <body className={twMerge(inter.className, 'mt-16')}>
+        <ReduxProvider>
+          <NextAuthProvider session={session}>
+            <Menubar />
+            {children}
+          </NextAuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   )

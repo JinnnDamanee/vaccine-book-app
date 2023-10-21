@@ -1,7 +1,7 @@
 import getUserProfile from "@/libs/getUserProfile"
-import Form from "./Form"
 import { authOptions } from "../api/auth/[...nextauth]/route"
 import { getServerSession } from "next-auth"
+import BookingForm from "./BookingForm"
 
 const Booking = async () => {
     const session = await getServerSession(authOptions)
@@ -35,7 +35,7 @@ const Booking = async () => {
                 </table>
             </div>
             <div className=" bg-white mx-auto shadow-2xl p-10 w-fit">
-                <Form />
+                <BookingForm />
             </div>
         </main>
     )

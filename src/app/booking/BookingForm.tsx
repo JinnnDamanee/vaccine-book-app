@@ -3,14 +3,42 @@
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import Link from "next/link";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from "dayjs";
+import { useState } from "react";
+import { IBookingItem } from "@/interface";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { addBooking } from "@/redux/features/bookingSlice";
+import { Dayjs } from "dayjs";
 
-const Form = () => {
+type TBookingForm = Omit<IBookingItem, 'pickUpDate'> & { pickUpDate: Dayjs | null }
+
+const initialBooking: TBookingForm = {
+    firstName: '',
+    lastName: '',
+    nid: '',
+    hospital: 'Chulalongkorn Hospital',
+    pickUpDate: null
+}
+
+const BookingForm = () => {
+    const [booking, setBooking] = useState<TBookingForm>(initialBooking);
+    const dispatch = useDispatch<AppDispatch>();
+
     const onSubimitHandler = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        alert('Your booking has been submitted!');
+        if (booking.nid && booking.firstName && booking.lastName && booking.hospital && booking.pickUpDate) {
+            dispatch(addBooking({
+                firstName: booking.firstName,
+                lastName: booking.lastName,
+                nid: booking.nid,
+                hospital: booking.hospital,
+                pickUpDate: booking.pickUpDate.format('DD/MM/YYYY')
+            }));
+            alert('Booking Success');
+        } else {
+            alert('Please fill all fields');
+        }
     }
-
 
     return (
         <form onSubmit={(e) => onSubimitHandler(e)}>
@@ -24,6 +52,8 @@ const Form = () => {
                             </label>
                             <div className="mt-2">
                                 <input
+                                    value={booking.firstName}
+                                    onChange={(e) => setBooking({ ...booking, firstName: e.target.value })}
                                     type="text"
                                     name="first-name"
                                     id="first-name"
@@ -39,6 +69,8 @@ const Form = () => {
                             </label>
                             <div className="mt-2">
                                 <input
+                                    value={booking.lastName}
+                                    onChange={(e) => setBooking({ ...booking, lastName: e.target.value })}
                                     type="text"
                                     name="last-name"
                                     id="last-name"
@@ -54,6 +86,8 @@ const Form = () => {
                             </label>
                             <div className="mt-2">
                                 <input
+                                    value={booking.nid}
+                                    onChange={(e) => setBooking({ ...booking, nid: e.target.value })}
                                     id="email"
                                     name="email"
                                     type="email"
@@ -69,22 +103,27 @@ const Form = () => {
                             </label>
                             <div className="mt-2">
                                 <select
+                                    value={booking.hospital}
+                                    onChange={(e) => setBooking({ ...booking, hospital: e.target.value })}
                                     id="country"
                                     name="country"
                                     autoComplete="country-name"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                 >
-                                    <option>Chulalongkorn Hospital</option>
-                                    <option>Rajavithi Hospital</option>
-                                    <option>Thammasat
-                                        University Hospital</option>
+                                    <option value={'Chulalongkorn Hospital'}>Chulalongkorn Hospital</option>
+                                    <option value={'Rajavithi Hospital'}>Rajavithi Hospital</option>
+                                    <option value={'Thammasat University Hospital'}>Thammasat University Hospital</option>
                                 </select>
                             </div>
                         </div>
 
                         <div className="col-span-full">
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DatePicker label="Pick Up Date" defaultValue={dayjs()} />
+                                <DatePicker
+                                    label="Pick Up Date"
+                                    value={booking.pickUpDate}
+                                    onChange={(e) => setBooking({ ...booking, pickUpDate: e })}
+                                />
                             </LocalizationProvider>
                         </div>
                     </div>
@@ -100,10 +139,10 @@ const Form = () => {
                     type="submit"
                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                    Submit
+                    Book Vaccine
                 </button>
             </div>
         </form>
     )
 }
-export default Form;
+export default BookingForm;
