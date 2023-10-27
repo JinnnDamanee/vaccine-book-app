@@ -20,13 +20,13 @@ const HospitalCatalog = async (hospitalLoading: IHospitalCatalog) => {
     const hospitals: hospital[] = await hospitalLoading.hospitalLoading
     return (
         <>
-            <div className="my-20 mx-auto flex justify-center gap-20 w-screen" >
+            <div className="my-20 mx-auto flex flex-wrap justify-center gap-20 w-screen" >
                 {
                     hospitals.map((item, index) => {
                         return (
                             <Link
                                 href={`/hospital/${item.id}`}
-                                className="w-1/4"
+                                className="w-[100%] sm:w-[50%] md:w-[30%] lg:w-[25%] p-2 sm:p-4 md:p-4 lg:p-8"
                                 key={index}
                             >
                                 <InfoCard

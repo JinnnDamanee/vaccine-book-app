@@ -3,6 +3,7 @@ interface UserProfile {
     email: string,
     tel: string,
     createdAt: string,
+    role: string,
 }
 
 const getUserProfile = async (token: string) => {
@@ -21,6 +22,7 @@ const getUserProfile = async (token: string) => {
         email: data.email,
         tel: data.tel,
         createdAt: (new Date(data.createdAt)).toString(),
+        role: data.role,
     }
     return u
 }

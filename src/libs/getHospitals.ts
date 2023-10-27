@@ -1,8 +1,10 @@
 const getHospitals = async () => {
 
-    await new Promise(resolve => setTimeout(resolve, 5000))
+    // await new Promise(resolve => setTimeout(resolve, 5000))
 
-    const resp = await fetch('http://localhost:5001/api/v1/hospitals')
+    const resp = await fetch('http://localhost:5001/api/v1/hospitals',{
+        next:{tags:['hospitals']}
+    })
     if (!resp.ok) {
         throw new Error('Error, cannot fetch hospitals')
     }
